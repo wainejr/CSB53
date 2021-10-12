@@ -1,0 +1,48 @@
+[tool.poetry]
+name = "grammy"
+version = "0.0.1"
+description = ""
+authors = [
+    "Waine Oliveira Jr <waine.oliveira.jr@gmail.com>", 
+    "Eduardo Yoshio <colocar_email>"]
+license = "MIT"
+packages = [
+    { include = "grammy", from = "grammy" }
+]
+
+[tool.poetry.dependencies]
+python = "^3.8"
+
+[tool.poetry.dev-dependencies]
+black = "^21.7-beta.0"
+isort = "^5.9"
+
+[tool.black]
+exclude = '''
+/(
+    \.git
+  | \.hg
+  | \.mypy_cache
+  | \.tox
+  | \.venv
+  | _build
+  | buck-out
+  | build
+  | dist
+)/
+'''
+include = '\.pyi?$'
+line-length = 99
+target-version = ['py38']
+
+[tool.isort]
+profile = "black"
+multi_line_output = 3
+line_length = 99
+src_paths = ["grammy", "scripts"]
+skip_glob = ["**/__init__.py"] # avoid circular imports
+
+
+[build-system]
+requires = ["poetry-core>=1.0.0"]
+build-backend = "poetry.masonry.api"
