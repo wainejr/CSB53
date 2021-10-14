@@ -1,23 +1,45 @@
+import csv
 from datetime import datetime
 from typing import Any, List
 
 from bs4 import BeautifulSoup
 
 from grammy.defines import YEARS_ANALYZE
-from grammy.metacritic import InfoMetacritic, get_filename_metacritic_best_albuns_year
+from grammy.metacritic import (
+    InfoMetacritic,
+    get_filename_metacritic_best_albuns_year,
+    get_filename_metacritic_data_all_years,
+    get_filename_metacritic_data_year,
+)
+from grammy.utils import create_folders_for_file
 
 
 def save_csv_info_year(info: List[InfoMetacritic], year: int):
-    ...
+    filename_year = get_filename_metacritic_data_year(year, "csv")
+    InfoMetacritic.save_to_csv(info, filename_year)
+
+
+def join_all_years_data():
+    all_info = []
+    for year in YEARS_ANALYZE:
+        filename_year = get_filename_metacritic_data_year(year, "csv")
+        info_year = InfoMetacritic.read_from_csv(filename_year)
+        all_info.extend(info_year)
+    filename_all_years = get_filename_metacritic_data_all_years("csv")
+    create_folders_for_file(filename_year)
+    InfoMetacritic.save_to_csv(all_info, filename_all_years)
 
 
 def read_html_from_year(year: int) -> str:
     filename = get_filename_metacritic_best_albuns_year(year, "html")
-    with open(filename, "r") as f:
+    with open(filename, "r", encoding="utf-8") as f:
         return f.read()
 
 
 def get_album_info_from_tr(tr: Any) -> InfoMetacritic:
+    # Example of link with list of albuns
+    # https://www.metacritic.com/browse/albums/score/metascore/year/filtered
+
     # Full link, as "https://static.metacritic.com/images/products/music/9/a3556781d32c32679cf702fe517c67c5-98.jpg"
     link_img = tr.find("img")["src"]  # only image in tr
     # Link relative to metacritic site, as "/music/stankonia/outkast"
@@ -70,26 +92,31 @@ def scrap_info_from_year(year: int) -> List[InfoMetacritic]:
 
     all_albuns_info: List[InfoMetacritic] = []
     for div in get_divs_data():
+        # Get tr that do not hava "spacer" in its class
+        albuns_tr_in_div = [
+            tr
+            for tr in div.find_all("tr")
+            if not ("class" in tr.attrs and "spacer" in tr.attrs["class"])
+        ]
 
-        def get_albuns_tr_in_div() -> List[Any]:
-            # Not get tr spacer classes
-            albuns_tr = [
-                tr
-                for tr in div.find_all("tr")
-                if not ("class" in tr.attrs and "spacer" in tr.attrs["class"])
-            ]
-            return albuns_tr
-
-        for album_tr in get_albuns_tr_in_div():
+        for album_tr in albuns_tr_in_div:
             album_info = get_album_info_from_tr(album_tr)
             all_albuns_info.append(album_info)
     return all_albuns_info
 
 
 def main():
+    n_albuns = 0
     for year in YEARS_ANALYZE:
-        info = scrap_info_from_year(year)
-        save_csv_info_year(info, year)
+        try:
+            info_year = scrap_info_from_year(year)
+            n_albuns += len(info_year)
+            save_csv_info_year(info_year, year)
+            print(f"Processed year {year}! There were {len(info_year)} albuns")
+        except Exception as e:
+            print(f"Unable to process year {year} :(\nException: {e}")
+    join_all_years_data()
+    print(f"Joined all albuns! Total of {n_albuns} albuns")
 
 
 if __name__ == "__main__":

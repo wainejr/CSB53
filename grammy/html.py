@@ -22,7 +22,7 @@ def download_and_save_html(
     html_save = download_html(url_path, html_params)
     create_folders_for_file(filename)
 
-    with open(filename, "w") as f:
+    with open(filename, "w", encoding="utf-8") as f:
         f.write(html_save)
 
 

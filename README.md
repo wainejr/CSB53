@@ -35,3 +35,17 @@ Uma análise criteriosa dos dados de álbuns, como nota da crítica, número de 
 Waine Barbosa de Oliveira Junior, 1905120, jr_waine, waine@alunos.utfpr.edu.br, Eng. Comp., UTFPR
 
 Eduardo Yoshio da Rocha, 1508733, eduardo2798, eduardo.yoshio@outlook.com, Eng. Comp., UTFPR
+
+
+## Instruções
+
+### Obter melhores álbuns do ano do metacritic
+
+Rodar os seguintes comandos (a partir da pasta raiz do projeto)
+
+```bash
+# Script para baixar as páginas de melhores álbuns
+python -m scripts.download_metacritic_best_albuns
+# Script para extrair os melhores álbuns das páginas baixados
+python -m scripts.extract_metacritic_best_albuns
+```
