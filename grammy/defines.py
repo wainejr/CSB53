@@ -1,9 +1,8 @@
 import os
+from typing import List
 
-METACRITIC_BEST_ALBUNS = {
-    "save_path": "downloads/metacritic/",
-}
+# 2000-2020
+YEARS_ANALYZE: List[int] = list(range(2000, 2021))
 
-
-def get_filename_metacritic_best_albuns(year: int) -> str:
-    return os.path.join(METACRITIC_BEST_ALBUNS["save_path"], f"best_albuns_{year}.html")
+DOWNLOAD_PATH = "downloads"
+DATA_PATH = "data"

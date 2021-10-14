@@ -2,11 +2,9 @@
 
 from typing import Dict, List, Tuple
 
-from grammy.defines import get_filename_metacritic_best_albuns
+from grammy.defines import YEARS_ANALYZE
 from grammy.html import download_and_save_html
-
-# 2000-2020
-YEARS: List[int] = list(range(2000, 2021))
+from grammy.metacritic import get_filename_metacritic_best_albuns_year
 
 
 def get_url_for_year(year: int) -> Tuple[str, Dict[str, str]]:
@@ -21,8 +19,8 @@ def get_url_for_year(year: int) -> Tuple[str, Dict[str, str]]:
 
 
 def main():
-    for year in YEARS:
-        filename = get_filename_metacritic_best_albuns(year)
+    for year in YEARS_ANALYZE:
+        filename = get_filename_metacritic_best_albuns_year(year, "html")
         url, params = get_url_for_year(year)
         download_and_save_html(url, params, filename)
         print(f"Saved year {year}!")

@@ -7,7 +7,9 @@ from grammy.utils import create_folders_for_file
 
 # This header is added, because otherwise most sites block the request
 REQUEST_HEADERS = {
-    "User-Agent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_10_1) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/39.0.2171.95 Safari/537.36"
+    "Content-Type": "text/html",
+    "Accept-Charset": "utf-8",
+    "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/93.0.4577.82 Safari/537.36 OPR/79.0.4143.73",
 }
 
 
@@ -25,7 +27,7 @@ def download_and_save_html(
 
 
 def download_html(url_path: str, params: Dict[str, str]) -> str:
-    req = requests.get(url_path, params=params, headers=REQUEST_HEADERS)
+    req = requests.get(url_path, params=params, headers=REQUEST_HEADERS, allow_redirects=True)
     if req.status_code < 400:
         return req.text
     raise Exception(f"Unable to get from {req.url}, status {req.status_code}\n{req.text}")
