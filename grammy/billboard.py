@@ -16,26 +16,19 @@ BILLBOARD_BEST_ALBUMS = {
 
 
 @dataclass
-#CHECK IT !!
 class InfoBillboard:
     artist: str
     album: str
-    release_date: datetime
-    userscore: Optional[int]
-    metascore: int
-    link_album: str
     link_img: str
+    rank:int
 
     @classmethod
     def csv_header(self) -> List[str]:
         return [
             "artist",
             "album",
-            "release_date",
-            "userscore",
-            "metascore",
-            "link_album",
             "link_img",
+            "rank"
         ]
 
     @property
@@ -43,28 +36,20 @@ class InfoBillboard:
         return [
             self.artist,
             self.album,
-            self.release_date.strftime("%Y-%m-%d"),
-            self.userscore if self.userscore is not None else "null",
-            self.metascore,
-            self.link_album,
             self.link_img,
+            self.rank
         ]
 
     @classmethod
     def build_info_from_csv(cls, csv_row: List[str]) -> InfoBillboard:
         artist, album = csv_row[0], csv_row[1]
-        release_date = datetime.strptime(csv_row[2], "%Y-%m-%d")
-        userscore = int(csv_row[3]) if csv_row[3] != "null" else None
-        metascore = int(csv_row[4])
-        link_album, link_img = csv_row[5], csv_row[6]
+        link_img = csv_row[2]
+        rank = int(csv_row[3])
         return InfoBillboard(
             artist=artist,
             album=album,
-            release_date=release_date,
-            userscore=userscore,
-            metascore=metascore,
-            link_album=link_album,
             link_img=link_img,
+            rank=rank
         )
 
     @classmethod
@@ -95,7 +80,7 @@ def get_filename_billboard_best_albums_year(year: int, ext: str) -> str:
 
 
 def get_filename_billboard_data_year(year: int, ext: str) -> str:
-    return os.path.join(BILLBOARD_BEST_ALBUMS["data_path"], f"scrap_year_{year}.{ext}")
+    return os.path.join(BILLBOARD_BEST_ALBUMS["data_path"], f"billboard_scrap_year_{year}.{ext}")
 
 
 def get_filename_billboard_data_all_years(ext: str) -> str:
