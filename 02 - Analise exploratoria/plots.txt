@@ -1,0 +1,12 @@
+1. média/max/min das notas no metacritic dos albums indicados ao grammy
+    - histograma com dados por ano
+2. nota do metacritic dos vencedores do grammy por ano
+3. colocação na billboard (um plot para todos os anos, ou o que achar melhor)
+    3.1 colocação na billboard ao longo dos anos dos albuns vencedores do grammy 
+    3.2 colocação na billboard do album com melhor review do ano no metacritic
+4. histograma de numero de indicações ao grammy por artista (e.g. 30 artistas com 1 indicação, 15 artisitas com 2, 5 artistas com 3, etc.)
+5. comparar albuns indicados ao grammy com os tops do metacritic nesse ano
+    5.1 fazer plot da colocação dos tops do metacritic na billboard ao longo dos anos (um plot por ano)
+    5.2 fazer plot da colocação dos indicados ao grammy na billboard ao longo dos anos (um plot por ano)
+
+obs.: usar sempre metascore no metacritic por enquanto
