@@ -36,7 +36,7 @@ def read_html_from_year(year: int) -> str:
         return f.read()
 
 
-def get_album_info_from_art(art: Any) -> InfoBillboard:
+def get_album_info_from_art(art: Any, year: int) -> InfoBillboard:
     # Example of link with list of albums
     # https://www.billboard.com/charts/year-end/2020/catalog-albums
 
@@ -49,7 +49,7 @@ def get_album_info_from_art(art: Any) -> InfoBillboard:
     # Format as "1"
     rank = int(art.find("div", class_="ye-chart-item__rank").text.strip())
 
-    info = InfoBillboard(artist=artist, album=album_name, link_img=link_img, rank=rank)
+    info = InfoBillboard(artist=artist, album=album_name, link_img=link_img, rank=rank, year=year)
     return info
 
 
@@ -67,7 +67,7 @@ def scrap_info_from_year(year: int) -> List[InfoBillboard]:
             article for article in div.find_all("article", class_="ye-chart-item")
         ]
         for album_art in albums_article_in_div:
-            album_info = get_album_info_from_art(album_art)
+            album_info = get_album_info_from_art(album_art, year)
             all_albums_info.append(album_info)
     return all_albums_info
 
