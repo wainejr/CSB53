@@ -2,20 +2,14 @@
 
 from typing import Dict, List, Tuple
 
+from grammy.billboard import get_filename_billboard_best_albums_year
 from grammy.defines import YEARS_ANALYZE
 from grammy.html import download_and_save_html
-from grammy.billboard import get_filename_billboard_best_albums_year
 
 
 def get_url_for_year(year: int) -> Tuple[str, Dict[str, str]]:
-    url = "https://www.billboard.com/charts/year-end/{0}/catalog-albums".format(year)
-    params = {
-        "year_selected": str(year),
-        "sort": "desc",
-        "view": "detailed",
-        "distribution": "",
-    }
-    return url, params
+    url = "https://www.billboard.com/charts/year-end/{0}/top-billboard-200-albums".format(year)
+    return url, {}
 
 
 def main():

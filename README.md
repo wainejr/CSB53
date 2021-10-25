@@ -45,7 +45,25 @@ Rodar os seguintes comandos (a partir da pasta raiz do projeto)
 
 ```bash
 # Script para baixar as páginas de melhores álbuns
-python -m scripts.download_metacritic_best_albuns
+python -m scripts.metacritic_best_albuns_download
 # Script para extrair os melhores álbuns das páginas baixados
-python -m scripts.extract_metacritic_best_albuns
+python -m scripts.metacritic_best_albuns_extract
 ```
+
+### Obter melhores álbuns do ano da Billboard
+
+Rodar os seguintes comandos (a partir da pasta raiz do projeto)
+
+```bash
+# Script para baixar as páginas de melhores álbuns
+python -m scripts.billboard_best_albuns_download
+# Script para extrair os álbuns das páginas baixados
+python -m scripts.billboard_best_albuns_extract
+```
+
+### Pegar dados do Spotify
+
+1. Copiar arquivo [end.example.json](env.example.json) para `env.json`
+2. Atualizar os dados do JSON
+   1. Colocar sua chave da API do Spotify ([instruções](https://developer.spotify.com/documentation/web-api/quick-start/))
+3. Rodar o script 

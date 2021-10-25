@@ -20,37 +20,22 @@ class InfoBillboard:
     artist: str
     album: str
     link_img: str
-    rank:int
+    rank: int
 
     @classmethod
     def csv_header(self) -> List[str]:
-        return [
-            "artist",
-            "album",
-            "link_img",
-            "rank"
-        ]
+        return ["artist", "album", "link_img", "rank"]
 
     @property
     def csv_list(self) -> List[Any]:
-        return [
-            self.artist,
-            self.album,
-            self.link_img,
-            self.rank
-        ]
+        return [self.artist, self.album, self.link_img, self.rank]
 
     @classmethod
     def build_info_from_csv(cls, csv_row: List[str]) -> InfoBillboard:
         artist, album = csv_row[0], csv_row[1]
         link_img = csv_row[2]
         rank = int(csv_row[3])
-        return InfoBillboard(
-            artist=artist,
-            album=album,
-            link_img=link_img,
-            rank=rank
-        )
+        return InfoBillboard(artist=artist, album=album, link_img=link_img, rank=rank)
 
     @classmethod
     def save_to_csv(cls, list_info: List[InfoBillboard], filename: str):
@@ -76,7 +61,9 @@ class InfoBillboard:
 
 
 def get_filename_billboard_best_albums_year(year: int, ext: str) -> str:
-    return os.path.join(BILLBOARD_BEST_ALBUMS["best_albums_path"], f"billboard_best_albums_{year}.{ext}")
+    return os.path.join(
+        BILLBOARD_BEST_ALBUMS["best_albums_path"], f"billboard_best_albums_{year}.{ext}"
+    )
 
 
 def get_filename_billboard_data_year(year: int, ext: str) -> str:

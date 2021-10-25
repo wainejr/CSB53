@@ -4,13 +4,13 @@ from typing import Any, List
 
 from bs4 import BeautifulSoup
 
-from grammy.defines import YEARS_ANALYZE
 from grammy.billboard import (
     InfoBillboard,
     get_filename_billboard_best_albums_year,
     get_filename_billboard_data_all_years,
     get_filename_billboard_data_year,
 )
+from grammy.defines import YEARS_ANALYZE
 from grammy.utils import create_folders_for_file
 
 
@@ -49,12 +49,7 @@ def get_album_info_from_art(art: Any) -> InfoBillboard:
     # Format as "1"
     rank = int(art.find("div", class_="ye-chart-item__rank").text.strip())
 
-    info = InfoBillboard(
-        artist=artist,
-        album=album_name,
-        link_img=link_img,
-        rank=rank
-    )
+    info = InfoBillboard(artist=artist, album=album_name, link_img=link_img, rank=rank)
     return info
 
 
@@ -68,7 +63,9 @@ def scrap_info_from_year(year: int) -> List[InfoBillboard]:
 
     all_albums_info: List[InfoBillboard] = []
     for div in get_divs_data():
-        albums_article_in_div = [article for article in div.find_all("article", class_="ye-chart-item")]
+        albums_article_in_div = [
+            article for article in div.find_all("article", class_="ye-chart-item")
+        ]
         for album_art in albums_article_in_div:
             album_info = get_album_info_from_art(album_art)
             all_albums_info.append(album_info)
