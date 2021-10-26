@@ -6,7 +6,7 @@ from dataclasses import dataclass
 from datetime import datetime
 from typing import Any, List, Optional
 
-from grammy.defines import DATA_PATH, DOWNLOAD_PATH
+from grammy.defines import DATA_PATH, DOWNLOAD_PATH, CSV_SEP, CSV_QUOTE
 from grammy.utils import create_folders_for_file
 
 BILLBOARD_BEST_ALBUMS = {
@@ -42,9 +42,9 @@ class InfoBillboard:
     @classmethod
     def save_to_csv(cls, list_info: List[InfoBillboard], filename: str):
         create_folders_for_file(filename)
-        with open(filename, "w", newline="") as csvfile:
+        with open(filename, "w", newline="", encoding="utf-8") as csvfile:
             spamwriter = csv.writer(
-                csvfile, delimiter=";", quotechar="|", quoting=csv.QUOTE_MINIMAL
+                csvfile, delimiter=CSV_SEP, quotechar=CSV_QUOTE, quoting=csv.QUOTE_MINIMAL
             )
             spamwriter.writerow(cls.csv_header())
             spamwriter.writerows((info.csv_list for info in list_info))
@@ -52,8 +52,8 @@ class InfoBillboard:
     @classmethod
     def read_from_csv(cls, filename: str) -> List[InfoBillboard]:
         all_info: List[InfoBillboard] = []
-        with open(filename, "r", newline="") as csvfile:
-            spamreader = csv.reader(csvfile, delimiter=";", quotechar="|")
+        with open(filename, "r", newline="", encoding="utf-8") as csvfile:
+            spamreader = csv.reader(csvfile, delimiter=CSV_SEP, quotechar=CSV_QUOTE)
             # Skip header
             next(spamreader, None)
             for row in spamreader:
