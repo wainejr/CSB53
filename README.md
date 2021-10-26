@@ -45,9 +45,9 @@ Rodar os seguintes comandos (a partir da pasta raiz do projeto)
 
 ```bash
 # Script para baixar as páginas de melhores álbuns
-python -m scripts.metacritic_best_albuns_download
+python -m scripts.metacritic_best_albums_download
 # Script para extrair os melhores álbuns das páginas baixados
-python -m scripts.metacritic_best_albuns_extract
+python -m scripts.metacritic_best_albums_extract
 ```
 
 ### Obter melhores álbuns do ano da Billboard
@@ -56,9 +56,9 @@ Rodar os seguintes comandos (a partir da pasta raiz do projeto)
 
 ```bash
 # Script para baixar as páginas de melhores álbuns
-python -m scripts.billboard_best_albuns_download
+python -m scripts.billboard_best_albums_download
 # Script para extrair os álbuns das páginas baixados
-python -m scripts.billboard_best_albuns_extract
+python -m scripts.billboard_best_albums_extract
 ```
 
 ### Pegar dados do Spotify

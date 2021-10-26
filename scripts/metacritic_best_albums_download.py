@@ -4,7 +4,7 @@ from typing import Dict, List, Tuple
 
 from grammy.defines import YEARS_ANALYZE
 from grammy.html import download_and_save_html
-from grammy.metacritic import get_filename_metacritic_best_albuns_year
+from grammy.metacritic import get_filename_metacritic_best_albums_year
 
 
 def get_url_for_year(year: int) -> Tuple[str, Dict[str, str]]:
@@ -20,7 +20,7 @@ def get_url_for_year(year: int) -> Tuple[str, Dict[str, str]]:
 
 def main():
     for year in YEARS_ANALYZE:
-        filename = get_filename_metacritic_best_albuns_year(year, "html")
+        filename = get_filename_metacritic_best_albums_year(year, "html")
         try:
             url, params = get_url_for_year(year)
             download_and_save_html(url, params, filename)

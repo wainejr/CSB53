@@ -7,7 +7,7 @@ from bs4 import BeautifulSoup
 from grammy.defines import YEARS_ANALYZE
 from grammy.metacritic import (
     InfoMetacritic,
-    get_filename_metacritic_best_albuns_year,
+    get_filename_metacritic_best_albums_year,
     get_filename_metacritic_data_all_years,
     get_filename_metacritic_data_year,
 )
@@ -31,13 +31,13 @@ def join_all_years_data():
 
 
 def read_html_from_year(year: int) -> str:
-    filename = get_filename_metacritic_best_albuns_year(year, "html")
+    filename = get_filename_metacritic_best_albums_year(year, "html")
     with open(filename, "r", encoding="utf-8") as f:
         return f.read()
 
 
 def get_album_info_from_tr(tr: Any) -> InfoMetacritic:
-    # Example of link with list of albuns
+    # Example of link with list of albums
     # https://www.metacritic.com/browse/albums/score/metascore/year/filtered
 
     # Full link, as "https://static.metacritic.com/images/products/music/9/a3556781d32c32679cf702fe517c67c5-98.jpg"
@@ -87,36 +87,36 @@ def scrap_info_from_year(year: int) -> List[InfoMetacritic]:
     soup = BeautifulSoup(text, "lxml")
 
     def get_divs_data() -> List[Any]:
-        albuns_divs = soup.find_all("div", class_="browse_list_wrapper")
-        return albuns_divs
+        albums_divs = soup.find_all("div", class_="browse_list_wrapper")
+        return albums_divs
 
-    all_albuns_info: List[InfoMetacritic] = []
+    all_albums_info: List[InfoMetacritic] = []
     for div in get_divs_data():
         # Get tr that do not hava "spacer" in its class
-        albuns_tr_in_div = [
+        albums_tr_in_div = [
             tr
             for tr in div.find_all("tr")
             if not ("class" in tr.attrs and "spacer" in tr.attrs["class"])
         ]
 
-        for album_tr in albuns_tr_in_div:
+        for album_tr in albums_tr_in_div:
             album_info = get_album_info_from_tr(album_tr)
-            all_albuns_info.append(album_info)
-    return all_albuns_info
+            all_albums_info.append(album_info)
+    return all_albums_info
 
 
 def main():
-    n_albuns = 0
+    n_albums = 0
     for year in YEARS_ANALYZE:
         try:
             info_year = scrap_info_from_year(year)
-            n_albuns += len(info_year)
+            n_albums += len(info_year)
             save_csv_info_year(info_year, year)
-            print(f"Processed year {year}! There were {len(info_year)} albuns")
+            print(f"Processed year {year}! There were {len(info_year)} albums")
         except Exception as e:
             print(f"Unable to process year {year} :(\nException: {e}")
     join_all_years_data()
-    print(f"Joined all albuns! Total of {n_albuns} albuns")
+    print(f"Joined all albums! Total of {n_albums} albums")
 
 
 if __name__ == "__main__":

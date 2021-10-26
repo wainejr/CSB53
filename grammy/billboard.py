@@ -6,7 +6,7 @@ from dataclasses import dataclass
 from datetime import datetime
 from typing import Any, List, Optional
 
-from grammy.defines import DATA_PATH, DOWNLOAD_PATH, CSV_SEP, CSV_QUOTE
+from grammy.defines import CSV_QUOTE, CSV_SEP, DATA_PATH, DOWNLOAD_PATH
 from grammy.utils import create_folders_for_file
 
 BILLBOARD_BEST_ALBUMS = {

@@ -6,11 +6,11 @@ from dataclasses import dataclass
 from datetime import datetime
 from typing import Any, List, Optional
 
-from grammy.defines import DATA_PATH, DOWNLOAD_PATH, CSV_SEP, CSV_QUOTE
+from grammy.defines import CSV_QUOTE, CSV_SEP, DATA_PATH, DOWNLOAD_PATH
 from grammy.utils import create_folders_for_file
 
-METACRITIC_BEST_ALBUNS = {
-    "best_albuns_path": os.path.join(DOWNLOAD_PATH, "metacritic"),
+METACRITIC_BEST_ALBUMS = {
+    "best_albums_path": os.path.join(DOWNLOAD_PATH, "metacritic"),
     "data_path": os.path.join(DATA_PATH, "metacritic"),
 }
 
@@ -89,13 +89,13 @@ class InfoMetacritic:
         return all_info
 
 
-def get_filename_metacritic_best_albuns_year(year: int, ext: str) -> str:
-    return os.path.join(METACRITIC_BEST_ALBUNS["best_albuns_path"], f"best_albuns_{year}.{ext}")
+def get_filename_metacritic_best_albums_year(year: int, ext: str) -> str:
+    return os.path.join(METACRITIC_BEST_ALBUMS["best_albums_path"], f"best_albums_{year}.{ext}")
 
 
 def get_filename_metacritic_data_year(year: int, ext: str) -> str:
-    return os.path.join(METACRITIC_BEST_ALBUNS["data_path"], f"scrap_year_{year}.{ext}")
+    return os.path.join(METACRITIC_BEST_ALBUMS["data_path"], f"scrap_year_{year}.{ext}")
 
 
 def get_filename_metacritic_data_all_years(ext: str) -> str:
-    return os.path.join(METACRITIC_BEST_ALBUNS["data_path"], f"all_years.{ext}")
+    return os.path.join(METACRITIC_BEST_ALBUMS["data_path"], f"all_years.{ext}")
