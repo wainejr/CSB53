@@ -4,15 +4,50 @@ import csv
 import os
 from dataclasses import dataclass
 from datetime import datetime
-from typing import Any, List, Optional
+from typing import Any, List, NamedTuple, Optional
+
+import pandas as pd
+from pandas import DataFrame
 
 from grammy.defines import CSV_QUOTE, CSV_SEP, DATA_PATH, DOWNLOAD_PATH
-from grammy.utils import create_folders_for_file
+from grammy.utils import create_folders_for_file, normalize_url_str, only_ascii
 
 METACRITIC_BEST_ALBUMS = {
     "best_albums_path": os.path.join(DOWNLOAD_PATH, "metacritic"),
+    "grammy_albums_path": os.path.join(DOWNLOAD_PATH, "grammy_metacritic"),
     "data_path": os.path.join(DATA_PATH, "metacritic"),
 }
+
+
+class MetacriticURL(NamedTuple):
+    artist: str
+    album: str
+    url: str
+
+    @classmethod
+    def build_from_artist_album(cls, artist: str, album: str) -> MetacriticURL:
+        base_url = "https://www.metacritic.com/music"
+        album_ascii, artist_ascii = only_ascii(album), only_ascii(artist)
+        album_url = normalize_url_str(album_ascii)
+        artist_url = normalize_url_str(artist_ascii)
+        url = f"{base_url}/{album_url}/{artist_url}"
+
+        return MetacriticURL(artist=artist, album=album, url=url)
+
+    @classmethod
+    def save_to_csv(cls, filename: str, urls: List[MetacriticURL]):
+        df = DataFrame.from_records(urls, columns=["artist", "album", "url"])
+        df.to_csv(filename, sep=CSV_SEP, quotechar=CSV_QUOTE, encoding="utf-8", index=False)
+
+    @classmethod
+    def read_from_csv(cls, filename: str) -> List[MetacriticURL]:
+        all_urls: List[MetacriticURL] = []
+        df = pd.read_csv(filename, sep=CSV_SEP, quotechar=CSV_QUOTE, encoding="utf-8")
+
+        for f in df.values:
+            metacritic_url = MetacriticURL(artist=f[0], album=f[1], url=f[2])
+            all_urls.append(metacritic_url)
+        return all_urls
 
 
 @dataclass
@@ -99,3 +134,21 @@ def get_filename_metacritic_data_year(year: int, ext: str) -> str:
 
 def get_filename_metacritic_data_all_years(ext: str) -> str:
     return os.path.join(METACRITIC_BEST_ALBUMS["data_path"], f"all_years.{ext}")
+
+
+def get_filename_metacritic_grammy_urls(ext: str) -> str:
+    return os.path.join(METACRITIC_BEST_ALBUMS["data_path"], f"grammies_urls.{ext}")
+
+
+def get_filename_metacritic_grammy_urls_treated(ext: str) -> str:
+    return os.path.join(METACRITIC_BEST_ALBUMS["data_path"], f"grammies_urls_treated.{ext}")
+
+
+def get_filename_metacritic_grammy_info(ext: str) -> str:
+    return os.path.join(METACRITIC_BEST_ALBUMS["data_path"], f"grammies_albums.{ext}")
+
+
+def get_filename_metacritic_grammy_album_html(url: str) -> str:
+    # album-name_artist-name
+    filename = "_".join(url.split("/")[-2:])
+    return os.path.join(METACRITIC_BEST_ALBUMS["grammy_albums_path"], f"{filename}.html")

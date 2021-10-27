@@ -39,7 +39,7 @@ class AlbumSearchSpotify:
         all_albums_tuples = [a.to_csv_row() for a in albums]
         df: DataFrame = DataFrame.from_records(all_albums_tuples, columns=["artist", "album"])
         df.sort_values(by=["artist", "album"], inplace=True)
-        print(df.head())
+        # print(df.head())
         create_folders_for_file(filename)
         df.to_csv(filename, sep=CSV_SEP, quotechar=CSV_QUOTE, encoding="utf-8", index=False)
 

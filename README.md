@@ -61,9 +61,29 @@ python -m scripts.billboard_best_albums_download
 python -m scripts.billboard_best_albums_extract
 ```
 
-### Pegar dados do Spotify
+### Obter dados dos álbuns do Grammy no Metacritic
+
+Rodar os seguintes comandos (a partir da pasta raiz do projeto)
+
+```bash
+# Script para gerar as urls para baixar
+python -m scripts.grammy_albums_metacritic_save_url
+```
+
+Após isso, o arquivo gerado (`data/metacritic/grammies_url.csv`) deve  movido para `data/metacritic/grammies_url_treated.csv` e então deve ser tratado, corrigindo as URLs erradas.
+
+```bash
+# Script para baixar as páginas dos álbuns
+python -m scripts.grammy_albums_metacritic_download
+# Script para extrair os dados das páginas
+python -m scripts.grammy_albums_metacritic_extract
+```
+
+### Obter dados do Spotify
 
 1. Copiar arquivo [end.example.json](env.example.json) para `env.json`
 2. Atualizar os dados do JSON
    1. Colocar sua chave da API do Spotify ([instruções](https://developer.spotify.com/documentation/web-api/quick-start/))
-3. Rodar o script 
+3. Rodar o script ...
+
+TODO

@@ -14,7 +14,7 @@ REQUEST_HEADERS = {
 
 
 def download_and_save_html(
-    url_path: str, html_params: str, filename: str, only_if_not_downloaded: bool = True
+    url_path: str, html_params: Dict[str, str], filename: str, only_if_not_downloaded: bool = True
 ):
     if only_if_not_downloaded and os.path.exists(filename):
         return
