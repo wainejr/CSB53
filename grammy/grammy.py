@@ -1,8 +1,14 @@
 from __future__ import annotations
 
+import os
 import csv
 from dataclasses import dataclass
 from typing import List
+from grammy.defines import CSV_QUOTE, CSV_SEP, DATA_PATH, DOWNLOAD_PATH
+
+GRAMMY_ALBUMS = {
+    "albums_of_the_year_path": os.path.join(DATA_PATH, "grammy"),
+}
 
 
 @dataclass
@@ -36,3 +42,6 @@ class InfoGrammy:
                 info = cls.build_info_from_csv(row)
                 all_info.append(info)
         return all_info
+
+def get_filename_grammy_albums_of_the_year(ext: str) -> str:
+    return os.path.join(GRAMMY_ALBUMS["albums_of_the_year_path"], f"albums_of_the_year.{ext}")
