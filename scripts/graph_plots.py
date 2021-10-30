@@ -38,7 +38,7 @@ def main():
     grammy_albums_winners = grammy_albums_merged.loc[grammy_albums_merged["won"] == 1]
 
     # ----------------------------------------------------------------------------------------
-    # graph 03.1 - NOT READY
+    # graph 3.1 - NOT READY
     billboard_albums_path = get_filename_billboard_data_all_years("csv")
     billboard_albums = pd.read_csv(
         billboard_albums_path, encoding="utf-8", sep=CSV_SEP, quotechar=CSV_QUOTE
@@ -55,7 +55,7 @@ def main():
     #     grammy_billboard_winners[grammy_billboard_winners.year_x != grammy_billboard_winners.year].index)
 
     # ----------------------------------------------------------------------------------------
-    # graph 03.2 - NOT READY
+    # graph 3.2 - NOT READY
     billboard_albums_path = get_filename_billboard_data_all_years("csv")
     billboard_albums = pd.read_csv(
         billboard_albums_path, encoding="utf-8", sep=CSV_SEP, quotechar=CSV_QUOTE
