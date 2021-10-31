@@ -20,7 +20,7 @@ Uma análise criteriosa dos dados de álbuns, como nota da crítica, número de 
 
 ### Fontes de dados
 - Kaggle
-- Billboars
+- Billboard
 - Metacritic
 - LastFM
 - Fontes alternativas p/ retirar dados à mão
@@ -36,6 +36,17 @@ Waine Barbosa de Oliveira Junior, 1905120, jr_waine, waine@alunos.utfpr.edu.br, 
 
 Eduardo Yoshio da Rocha, 1508733, eduardo2798, eduardo.yoshio@outlook.com, Eng. Comp., UTFPR
 
+
+## Estrutura de pastas
+
+### Pastas com código:
+- `grammy`: código comum para vários scripts e notebooks
+- `scripts`: pasta com scripts para serem rodados, usualmente para download de páginas web, scrapping ou tratamento de dados
+- `notebooks`: Jupyter notebooks, utilizados para visualização de dados.
+
+### Pastas com dados
+- `downloads`: Páginas webs baixadas para scrapping
+- `data`: dados obtidos para processamento, seja por salvamento manual ou por scrapping
 
 ## Instruções
 
