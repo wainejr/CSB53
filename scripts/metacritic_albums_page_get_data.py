@@ -1,14 +1,14 @@
 from __future__ import annotations
 
-import os
-from typing import Any, List, Dict
-from datetime import datetime
 import json
+import os
 import time
+from datetime import datetime
+from typing import Any, Dict, List
 
 import pandas as pd
-from pandas import DataFrame
 from bs4 import BeautifulSoup
+from pandas import DataFrame
 
 
 def get_album_info_from_page(page: Any, link_album: str) -> Dict:

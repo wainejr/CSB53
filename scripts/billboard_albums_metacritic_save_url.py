@@ -2,7 +2,7 @@ from __future__ import annotations
 
 from typing import List
 
-from grammy.billboard import get_filename_billboard_data_all_years, InfoBillboard
+from grammy.billboard import InfoBillboard, get_filename_billboard_data_all_years
 from grammy.metacritic import MetacriticURL, get_filename_metacritic_billboard_urls
 
 

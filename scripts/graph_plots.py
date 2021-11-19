@@ -2,14 +2,14 @@ import matplotlib.pyplot as plt
 import numpy as np
 import pandas as pd
 import seaborn as sns
-
 from matplotlib.ticker import MaxNLocator
+
 from grammy.billboard import get_filename_billboard_data_all_years
 from grammy.defines import CSV_QUOTE, CSV_SEP
 from grammy.grammy import get_filename_grammy_albums_of_the_year
 from grammy.metacritic import (
-    get_filename_metacritic_grammy_info,
     get_filename_metacritic_data_all_years,
+    get_filename_metacritic_grammy_info,
 )
 
 
