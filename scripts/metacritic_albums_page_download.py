@@ -1,14 +1,19 @@
 from grammy.html import download_and_save_html
 from grammy.metacritic import (
+    InfoMetacritic,
     MetacriticURL,
     get_filename_metacritic_album_html,
-    get_filename_metacritic_grammy_urls_treated,
+    get_filename_metacritic_data_all_years,
 )
 
 
 def main():
-    filename_csv = get_filename_metacritic_grammy_urls_treated("csv")
-    metacritic_urls = MetacriticURL.read_from_csv(filename_csv)
+    filename_csv = get_filename_metacritic_data_all_years("csv")
+    metacritic_infos = InfoMetacritic.read_from_csv(filename_csv)
+    metacritic_urls = [
+        MetacriticURL(artist=m.artist, album=m.album, url=m.link_album) for m in metacritic_infos
+    ]
+
     total = len(metacritic_urls)
     not_found = 0
     for metacritic_url in metacritic_urls:

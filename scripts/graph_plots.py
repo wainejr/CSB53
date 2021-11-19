@@ -7,7 +7,10 @@ from matplotlib.ticker import MaxNLocator
 from grammy.billboard import get_filename_billboard_data_all_years
 from grammy.defines import CSV_QUOTE, CSV_SEP
 from grammy.grammy import get_filename_grammy_albums_of_the_year
-from grammy.metacritic import get_filename_metacritic_grammy_info, get_filename_metacritic_data_all_years
+from grammy.metacritic import (
+    get_filename_metacritic_grammy_info,
+    get_filename_metacritic_data_all_years,
+)
 
 
 def main():
@@ -66,8 +69,11 @@ def main():
     metacritic_albums = pd.read_csv(
         metacritic_albums_path, encoding="utf-8", sep=CSV_SEP, quotechar=CSV_QUOTE
     )
-    metacritic_albums['year'] = pd.DatetimeIndex(metacritic_albums['release_date']).year
-    idx = metacritic_albums.groupby(['year'])['metascore'].transform(max) == metacritic_albums['metascore']
+    metacritic_albums["year"] = pd.DatetimeIndex(metacritic_albums["release_date"]).year
+    idx = (
+        metacritic_albums.groupby(["year"])["metascore"].transform(max)
+        == metacritic_albums["metascore"]
+    )
     metacritic_best_review = metacritic_albums[idx]
 
     metacritic_best_review["album"] = metacritic_best_review["album"].str.lower()
@@ -96,16 +102,16 @@ def main():
     plt.figure()  # 3.1 - NOT READY
     bx = sns.scatterplot(x="year", y="rank", hue="album", data=grammy_billboard_winners)
     bx.set(xticks=grammy_billboard_winners.year.values)
-    bx.tick_params(axis='x', rotation=40)
+    bx.tick_params(axis="x", rotation=40)
     bx.invert_yaxis()
-    bx.legend_.remove() #find a way to show name albums without plot over the graph
+    bx.legend_.remove()  # find a way to show name albums without plot over the graph
     # plt.legend(bbox_to_anchor=(1.05, 1), loc=2, borderaxespad=0.)
     bx.set_title("Billboard rank of grammy winners per year")
 
     plt.figure()  # 3.2 - NOT READY
     bx = sns.scatterplot(x="year", y="rank", hue="album", data=result_albums)
     bx.set(xticks=result_albums.year.values)
-    bx.tick_params(axis='x', rotation=40)
+    bx.tick_params(axis="x", rotation=40)
     bx.invert_yaxis()
     bx.legend_.remove()  # find a way to show name albums without plot over the graph
     # plt.legend(bbox_to_anchor=(1.05, 1), loc=2, borderaxespad=0.)

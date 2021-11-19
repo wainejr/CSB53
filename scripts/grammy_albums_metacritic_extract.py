@@ -7,7 +7,7 @@ from bs4 import BeautifulSoup
 from grammy.metacritic import (
     InfoMetacritic,
     MetacriticURL,
-    get_filename_metacritic_grammy_album_html,
+    get_filename_metacritic_album_html,
     get_filename_metacritic_grammy_info,
     get_filename_metacritic_grammy_urls_treated,
 )
@@ -72,7 +72,7 @@ def main():
     all_metacritic_info: List[InfoMetacritic] = []
     for metacritic_url in metacritic_urls:
         url = metacritic_url.url
-        filename_html = get_filename_metacritic_grammy_album_html(url)
+        filename_html = get_filename_metacritic_album_html(url)
         if not os.path.exists(filename_html):
             print(f"'{metacritic_url.artist} - {metacritic_url.album}' does not have html")
             no_html += 1

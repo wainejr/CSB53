@@ -144,11 +144,19 @@ def get_filename_metacritic_grammy_urls_treated(ext: str) -> str:
     return os.path.join(METACRITIC_BEST_ALBUMS["data_path"], f"grammies_urls_treated.{ext}")
 
 
+def get_filename_metacritic_billboard_urls(ext: str) -> str:
+    return os.path.join(METACRITIC_BEST_ALBUMS["data_path"], f"billboard_urls.{ext}")
+
+
+def get_filename_metacritic_billboard_urls_treated(ext: str) -> str:
+    return os.path.join(METACRITIC_BEST_ALBUMS["data_path"], f"billboard_urls_treated.{ext}")
+
+
 def get_filename_metacritic_grammy_info(ext: str) -> str:
     return os.path.join(METACRITIC_BEST_ALBUMS["data_path"], f"grammies_albums.{ext}")
 
 
-def get_filename_metacritic_grammy_album_html(url: str) -> str:
+def get_filename_metacritic_album_html(url: str) -> str:
     # album-name_artist-name
     filename = "_".join(url.split("/")[-2:])
     return os.path.join(METACRITIC_BEST_ALBUMS["grammy_albums_path"], f"{filename}.html")

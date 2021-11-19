@@ -1,4 +1,5 @@
 from pathlib import Path
+import unicodedata
 
 
 def create_folder(foldername: str):
@@ -10,15 +11,18 @@ def create_folders_for_file(filename: str):
 
 
 def only_ascii(s: str) -> str:
+    s = unicodedata.normalize("NFD", s)
     return s.encode("ascii", "ignore").decode("ascii")
 
 
 def normalize_url_str(s: str) -> str:
-    char_remove = [":", "&", "'", ".", ",", "?", "/"]
+    char_remove = [":", "&", "'", ".", ",", "?", "/", "[", "]", '"', "$"]
     for c in char_remove:
         s = s.replace(c, "")
     s = s.lower()
     s = s.replace("(deluxe)", "")
+    s = s.replace("(soundtrack)", "")
+    s = s.replace("(ep)", "")
     s = s.strip()
 
     # Avoid problems as "1 - 2", generating "1---2"
