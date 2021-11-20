@@ -88,11 +88,16 @@ def main():
     billboard_df = get_billboard_df()
 
     all_albums = get_all_albums_data()
+    n_albums = {"grammy": 0, "billboard": 0}
     for album in all_albums:
         url = album["link_album"]
         album["grammy"] = get_grammy_album_data(url, grammy_df)
         album["billboard"] = get_billboard_album_data(url, billboard_df)
-
+        for n in ["grammy", "billboard"]:
+            if(album[n] is not None):
+                n_albums[n] += 1
+    
+    print(n_albums)
     with open(FILE_OUTPUT, "w", encoding="utf-8") as f:
         json.dump(all_albums, f, ensure_ascii=False)
 
