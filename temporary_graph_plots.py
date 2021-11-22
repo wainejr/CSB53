@@ -19,6 +19,25 @@ def main():
     filename = "data/all_data.json"
     df = pd.read_json(filename, convert_dates=["release_date"])
 
+    df_genres = df[['metascore', 'genres']]
+
+    _df_genres = df_genres.set_index(['metascore'])['genres'].apply(pd.Series).stack().reset_index()
+    _df_genres.columns = ['metascore', 'genre_num', 'genres']
+    _df_genres_mean = _df_genres.groupby(["genres"]).mean().reset_index()
+
+    _df_genres_most_frequently = _df_genres.groupby(['genres'])['metascore'].count().reset_index(name='Count')\
+        .sort_values(['Count'], ascending=False).head(20)
+
+    df21 = pd.merge(_df_genres, _df_genres_most_frequently, on=['genres'], how='left', indicator='Exist')
+    df212 = df21[df21["Exist"] == "both"].sort_values(['Count'], ascending=False).reset_index()
+
+    plt.figure()  # 1
+    ax = sns.boxplot(x="genres", y="metascore", data=df212, color="cornflowerblue")
+    ax.set_xticklabels(ax.get_xticklabels(), rotation=90, ha="right")
+
+    plt.plot()
+    plt.show()
+
     df_billboard = df[df["billboard"].notnull()]
     _df_only_billboard = pd.DataFrame(df_billboard[["billboard", "metascore", "link_album"]])
     _all_billboard_data = {"metascore": [], "link_album": [], "rank": [], "year": []}
