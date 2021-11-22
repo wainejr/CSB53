@@ -19,6 +19,29 @@ def main():
     filename = "data/all_data.json"
     df = pd.read_json(filename, convert_dates=["release_date"])
 
+    df_billboard = df[df["billboard"].notnull()]
+    _df_only_billboard = pd.DataFrame(df_billboard[["billboard", "metascore", "link_album"]])
+    _all_billboard_data = {"metascore": [], "link_album": [], "rank": [], "year": []}
+    for v in _df_only_billboard.values:
+        for year, rank in dict(v[0]).items():
+            _all_billboard_data["metascore"].append(v[1])
+            _all_billboard_data["link_album"].append(v[2])
+            _all_billboard_data["year"].append(int(year))
+            _all_billboard_data["rank"].append(int(rank))
+
+    _df_billboard = pd.DataFrame.from_dict(_all_billboard_data)
+    _df_billboard = _df_billboard[["rank", "metascore"]]
+    _df_rank_mean = _df_billboard.groupby(["rank"]).mean().reset_index()
+    plt.figure()  # 1
+    ax = sns.barplot(x="rank", y="metascore", data=_df_rank_mean)
+    ax.set_title("Mean metascore for indicaded albums per year")
+    ax.set_xticklabels(ax.get_xticklabels(), rotation=90, ha="right")
+
+    plt.plot()
+    plt.show()
+    #_df_billboard = _df_billboard.sort_values(by=['rank'])
+
+
     #- Metascore by position for Billboard (average)
     df_billboard = df[df["billboard"].notnull()]
     quebrando = df_billboard['billboard'].apply(pd.Series)
