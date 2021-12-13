@@ -42,6 +42,7 @@ def calculate_odds_ration(response):
 def main():
     # filename = "../data/all_data.json"
     df = pd.read_json(all_data_filename, convert_dates=["release_date"])
+    # df = df[df["billboard"].notnull()]
 
     #region regular analysis
     df_vars = df[['metascore', 'grammy', 'billboard', 'release_date']]
